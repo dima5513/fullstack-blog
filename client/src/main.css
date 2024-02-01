@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+[data-theme='light'] {
+    --bg-base: 224, 225, 221;
+    --bg-inverted: 27, 38, 59;
+    --fallback-1: 119, 141, 169;
+    /* --fallback-1: #778da9; */
+    --fallback-2: 119, 141, 169;
+    --primary-accent: 212, 166, 0;
+    --secondary-outline-accent: 0, 133, 62;
+    --text: 27, 38, 59;
+    --text-secondary: 0, 133, 62;
+    --text-inverted: 224, 225, 221;
+}
+
+[data-theme='dark'] {
+    --bg-base: 79, 79, 79;
+    --bg-inverted: 224, 225, 221;
+    /* --fallback-1: #0d1b2a; */
+    --fallback-1: 201, 97, 119;
+    --fallback-2: 65, 90, 119;
+    --primary-accent: 22, 115, 37;
+    --secondary-outline-accent: 99, 137, 184;
+    --text: 224, 225, 221;
+    --text-secondary: 99, 137, 184;
+    --text-inverted: 79, 79, 79;
+}
+
+body {
+    font-family: Inter, sans-serif;
+    background-color: rgb(var(--bg-base));
+    color: rgb(var(--text));
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: bold;
+    line-height: normal;
+}

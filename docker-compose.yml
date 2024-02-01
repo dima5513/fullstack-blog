@@ -1,0 +1,44 @@
+version: "3"
+services:
+  postgresdb:
+    image: postgres
+    container_name: postgresdb
+    environment:
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: postgres
+      POSTGRES_DB: auth
+    ports:
+      - "2345:5432"
+    volumes:
+      - "./datapg:/var/lib/postgresql/data"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
+
+  nestjs:
+    build:
+      context: ./server
+    container_name: nestjs
+    ports:
+      - "3001:3001"
+    volumes:
+      - "./server:/usr/src/app"
+      - "/usr/src/app/node_modules"
+    command: pnpm run start:dev
+    depends_on:
+      postgresdb:
+        condition: service_healthy
+  vuejs:
+    build:
+      context: ./client
+    container_name: vuejs
+    ports:
+      - 5173:5173
+    volumes:
+      - ./client:/usr/src/app
+      - /usr/src/app/node_modules
+    command: pnpm run dev
+    depends_on:
+      - nestjs
